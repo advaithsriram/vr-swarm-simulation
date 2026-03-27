@@ -1,6 +1,8 @@
 # Next-Best-View Aerial Swarms for Multi-Viewpoint Monitoring
 
-The project report can be accessed here: [Advaith_LIS_Final.pdf](Advaith_LIS_Final.pdf)
+The project report can be accessed here: [Advaith_LIS_Final.pdf](Advaith_LIS_Final.pdf).
+
+For more details, please check out: https://advaithsriram.github.io/project/nbv
 
 This repository contains the simulation framework and experimental data for a comparative study between decentralized swarm-based exploration and Next-Best-View (NBV) planning in multi-drone systems.
 
@@ -56,6 +58,6 @@ Original related project and references:
 
 This research was conducted as a semester project at **EPFL**, within the **Laboratory of Intelligent Systems (LIS)**.
 
-- **Professor:** Dario Floreano
-- **Assistant:** Benjamin Jarvis
 - **Student:** Advaith Sriram
+- **Supervisor:** Benjamin Jarvis
+- **Professor:** Dario Floreano
