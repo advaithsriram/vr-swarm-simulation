@@ -1,75 +1,63 @@
-# Unity Drone Simulator
+# Next-Best-View Aerial Swarms for Multi-Viewpoint Monitoring
 
-**A drone created for Unity with realistic drone physics, intended for Reinforcement Learning Simulation.**
+The project report can be accessed here: [Advaith_LIS_Final.pdf](Advaith_LIS_Final.pdf)
 
-*Project AutoQuad, Spring 2018, UAVs @ Berkeley & Machine Learning @ Berkeley*
+This repository contains the simulation framework and experimental data for a comparative study between decentralized swarm-based exploration and Next-Best-View (NBV) planning in multi-drone systems.
 
-![alt text](sim_image.png)
+The codebase builds on a Unity drone simulation originally developed in Project AutoQuad (Spring 2018, UAVs@Berkeley and ML@Berkeley), then developed at EPFL LIS. It was extended for a semester project at EPFL LIS focused on multi-agent aerial monitoring and visibility maximization.
 
----
+![Simulation snapshot](sim_image.png)
 
-### Setup Instructions
+## Project Overview
 
-1. Download Blender: <a>https://www.blender.org/download/</a>
-2. Download Unity 2017: <a>https://unity3d.com/get-unity/download/</a>
-3. Clone this repo, master
-    1. **master**: Currently velocity_control, stable (supports ML-Agents)
-    2. velocity_control: for development of realistic velocity control for drone, supports ML-Agents interface
-		1. ML-Agents v0.3.1b as of right now (0.3 necessary)
-    3. custom_physics: Roll, Pitch, Yaw, Throttle PID control [1]
-    4. cubedrone: precursor to velocity control branch
-4. Open Up Unity, and select Open and navigate to the root directory of this repository.
-5. Press Play to run the simulation
-    1. velocity control branch
-        1. I: FORWARD + STRAIGHT (default action in player mode)
-        2. J: FORWARD + LEFT
-        3. L: FORWARD + RIGHT
-    2. custom_physics branch (behind on environment and ml-agents code)
-        1. I: PITCH FORWARD
-        2. K: PITCH BACKWARD
-        3. J: ROLL LEFT
-        4. L: ROLL RIGHT
-        5. W: THROTTLE UP
-        6. S: THROTTLE DOWN
-        7. A: YAW LEFT
-        8. D: YAW RIGHT
-6. To Build: File -> Build Settings, Build, and then select the 
-    1. Make sure the build settings are all correct for your environment
-7. See the <a href="https://github.com/suneelbelkhale/AutoQuad">AutoQuad repository</a> for ML-Agents code to interface with the environment.
-    1. Includes sample Imitation Learning and RL approaches
+The primary objective of this project is to evaluate how effectively decentralized swarming algorithms can maximize scene visibility compared to explicit, information-driven NBV planning.
 
----
-### State Spaces
+While NBV approaches are traditionally studied for single-agent systems, this work extends the comparison to multi-agent settings where scalability and coordination are critical.
 
-Choose between the following two states by toggling the use_new_state boolean in the DroneAgent.cs script (or in inspector under DroneParent -> DroneAgent).
+## Methodology
 
-1. New state space (5 elements in this order)
-    1. Heading (direction, normalized -1 to 1)
-    2. Distance from target
-    3. forward velocity (normalized)
-    4. yaw rate (normalized)
-    5. collision (1 or 0)
-2. Old state (13 elements in this order)
-    1. (X,Y,Z) velocity
-    2. (X,Y,Z) position
-    3. (X,Y,Z) Euler angles
-    4. (X,Y,Z) Target Position
-    5. collision (1 or 0)
+Experiments were conducted in a Unity-based simulation environment using textured 3D residential models from the House3K dataset.
 
-Observations are 128x128 grayscale images.
+The study compares two distinct multi-agent control strategies:
 
----
-### Members 
+- **MAP-NBV (Multi-Agent Prediction-Guided NBV):** A decentralized framework using the PoinTr model for point cloud completion. It iteratively selects viewpoints to maximize information gain by reasoning about unseen surfaces through geometric priors.
+- **Decentralized Swarming (Olfati-Saber):** A potential-field-based algorithm where drone motion is governed by local interaction rules (attraction, repulsion, and obstacle avoidance). In this work, boundary drones were adapted to orient sensors inward toward the swarm centroid to maintain persistent observation of the target.
 
-#### ML@Berkeley:
-*Project Managers:* Suneel Belkhale, Alex Li  
-*Project Members:* Gefen Kohavi, Murtaza Dalal, Daniel Ho, Franklin Rice, Allan Levy
+### Evaluation Metric
 
-##### UAV's@Berkeley:
-*Project Managers:* Suneel Belkhale  
-*Project Members:* Alex Chan, Kevin Yang, Valmik Prabhu, Isabella Maceda, Erin Song, Dilan Bhalla, Asad Abbasi, Jason Kim
+Performance is quantified using a normalized point cloud visibility metric. This metric measures the fraction of the ground-truth object surface represented by accumulated depth measurements, without requiring a full 3D reconstruction.
 
----
-### References
+## Key Findings
 
-[1] For RPY PID Controller code: https://github.com/WebdiverShaka/DroneControl
+- **Efficiency Trade-offs:** Swarm-based methods achieved higher overall surface coverage (up to ~96.6%) with shorter mission times and reduced travel distances, but required substantially more image captures.
+- **Observation Sparsity:** NBV planning attained comparable reconstruction quality with significantly fewer observations, at the cost of longer execution times and more irregular trajectories.
+- **Diminishing Returns:** Both methods showed diminishing returns as drone count increased. For swarms, visibility gains typically saturated around 5-6 drones due to field-of-view overlap and sensing redundancy.
+
+## Repository Context
+
+This repository includes:
+
+- Unity simulation assets and scripts for multi-drone scene monitoring experiments.
+- Experiment launch and orchestration scripts for both NBV and swarm pipelines.
+- Post-processing and analysis scripts for comparing point-cloud visibility and uncovered regions.
+- Output CSVs and notebooks used for quantitative comparison.
+
+## Origins and Prior Work
+
+The simulator foundation originated from:
+
+- **Project AutoQuad, Spring 2018**
+- **UAVs@Berkeley** and **Machine Learning @ Berkeley**
+
+Original related project and references:
+
+- AutoQuad repository: https://github.com/suneelbelkhale/AutoQuad
+- RPY PID controller reference: https://github.com/WebdiverShaka/DroneControl
+
+## Acknowledgments
+
+This research was conducted as a semester project at **EPFL**, within the **Laboratory of Intelligent Systems (LIS)**.
+
+- **Professor:** Dario Floreano
+- **Assistant:** Benjamin Jarvis
+- **Student:** Advaith Sriram
