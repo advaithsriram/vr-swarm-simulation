@@ -46,6 +46,9 @@ Assets/DroneImages/
 # Exclude all processed images (captures, point clouds, etc.)
 Assets/ProcessedImages/
 
+# Portfolio archive: ignore all Unity metadata files
+*.meta
+
 vrswarm_env*
 
 Assets/FinalPointClouds/
