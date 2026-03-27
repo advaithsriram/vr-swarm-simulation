@@ -6,8 +6,6 @@ This repository contains the simulation framework and experimental data for a co
 
 The codebase builds on a Unity drone simulation originally developed in Project AutoQuad (Spring 2018, UAVs@Berkeley and ML@Berkeley), then developed at EPFL LIS. It was extended for a semester project at EPFL LIS focused on multi-agent aerial monitoring and visibility maximization.
 
-![Simulation snapshot](sim_image.png)
-
 ## Project Overview
 
 The primary objective of this project is to evaluate how effectively decentralized swarming algorithms can maximize scene visibility compared to explicit, information-driven NBV planning.
